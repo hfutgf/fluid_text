@@ -1,0 +1,22 @@
+{
+  "name": "fluidtext",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "turbo dev",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "turbo": "^2.4.4"
+  },
+  "packageManager": "pnpm@9.5.0",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
