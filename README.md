@@ -71,16 +71,8 @@ Edit
 \*\*/node_modules/
 If large files have already been committed, consider using BFG Repo-Cleaner or git filter-repo to remove them from the history.
 
-Deployment
-(Provide deployment instructions here — for example, using Vercel, Heroku, or another hosting platform.)
-
-License
-(Include your chosen license, e.g., MIT License.)
-
 yaml
 Copy
 Edit
 
 ---
-
-Feel free to adjust this template to better match your project details and requirements.
