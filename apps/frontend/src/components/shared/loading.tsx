@@ -1,8 +1,8 @@
-import { LoadingOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
-import React from 'react'
+import { LoadingOutlined } from "@ant-design/icons";
+import { Flex } from "antd";
+import React from "react";
 
-import AntSpin from '@/components/ui/spin'
+import AntSpin from "@/components/ui/spin";
 
 const Loading = () => {
   return (
@@ -17,7 +17,7 @@ const Loading = () => {
         }
       />
     </Flex>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

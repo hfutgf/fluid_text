@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import CommonProvider from '@/providers/common-provider'
+import CommonProvider from "@/providers/common-provider";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,7 +9,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         {children}
       </div>
     </CommonProvider>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;

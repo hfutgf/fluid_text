@@ -1,28 +1,28 @@
-'use client'
+"use client";
 
-import { GoogleOutlined, LockOutlined, UserOutlined } from '@ant-design/icons'
-import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
-import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
-import z from 'zod'
+import { GoogleOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import z from "zod";
 
-import AntButton from '@/components/ui/button'
-import AntInput from '@/components/ui/input/input'
-import AntPasswordInput from '@/components/ui/input/input-password'
-import { LoginFormType } from '@/features/types/user.types'
+import AntButton from "@/components/ui/button";
+import AntInput from "@/components/ui/input/input";
+import AntPasswordInput from "@/components/ui/input/input-password";
+import { LoginFormType } from "@/features/types/user.types";
 
 const loginSchema = z.object({
-  username: z.string().min(6, 'Username is required'),
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
-})
+  username: z.string().min(6, "Username is required"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+});
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const {
     control,
@@ -30,22 +30,22 @@ const Login = () => {
     handleSubmit,
   } = useForm({
     resolver: zodResolver(loginSchema),
-  })
+  });
 
   const onSubmit = async (data: LoginFormType) => {
-    setIsLoading(true)
-    const res = await signIn('credentials', {
+    setIsLoading(true);
+    const res = await signIn("credentials", {
       username: data.username,
       password: data.password,
       redirect: false,
-    })
+    });
     if (res?.error) {
-      toast.error(res.error)
+      toast.error(res.error);
     } else {
-      router.push('/')
+      router.push("/");
     }
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
   return (
     <div className="bg-white p-6 py-12  rounded-md w-[500px] text-black">
       <h1 className="text-center text-3xl font-bold">Login</h1>
@@ -94,19 +94,19 @@ const Login = () => {
       </form>
       <hr className="my-6" />
       <AntButton
-        onClick={() => signIn('google')}
+        onClick={() => signIn("google")}
         className="w-full"
         size="large"
       >
         <GoogleOutlined /> Google
       </AntButton>
-      <Link href={'/auth/register'}>
+      <Link href={"/auth/register"}>
         <AntButton htmlType="button" className="w-full mt-6" size="large">
           Sign up
         </AntButton>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

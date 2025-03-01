@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query'
-import { axiosPublic } from 'utils/axios-instances'
+import { useMutation } from "@tanstack/react-query";
+import { axiosPublic } from "utils/axios-instances";
 
-import { RegisterFormType } from '@/features/types/user.types'
+import { RegisterFormType } from "@/features/types/user.types";
 
 export function useRegister() {
   const {
@@ -10,9 +10,9 @@ export function useRegister() {
     isPending: isRegisterPending,
     isSuccess: isRegisterSuccess,
   } = useMutation({
-    mutationKey: ['register'],
+    mutationKey: ["register"],
     mutationFn: (body: RegisterFormType) =>
-      axiosPublic.post('/auth/register', body),
-  })
-  return { registerData, registerMutate, isRegisterPending, isRegisterSuccess }
+      axiosPublic.post("/auth/register", body),
+  });
+  return { registerData, registerMutate, isRegisterPending, isRegisterSuccess };
 }

@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import NextTopLoader from 'nextjs-toploader'
-import React from 'react'
-import { ToastContainer } from 'react-toastify'
+import NextTopLoader from "nextjs-toploader";
+import React from "react";
+import { ToastContainer } from "react-toastify";
 
 const CommonProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -23,7 +23,7 @@ const CommonProvider = ({ children }: { children: React.ReactNode }) => {
       />
       {children}
     </>
-  )
-}
+  );
+};
 
-export default CommonProvider
+export default CommonProvider;

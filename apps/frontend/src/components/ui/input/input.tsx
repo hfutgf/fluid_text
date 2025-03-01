@@ -1,10 +1,10 @@
-import { Input, InputProps, InputRef } from 'antd'
-import React, { forwardRef } from 'react'
+import { Input, InputProps, InputRef } from "antd";
+import React, { forwardRef } from "react";
 
 const AntInput = forwardRef<InputRef, InputProps>((props, ref) => {
-  return <Input ref={ref} {...props} />
-})
+  return <Input ref={ref} {...props} />;
+});
 
-AntInput.displayName = 'AntInput'
+AntInput.displayName = "AntInput";
 
-export default AntInput
+export default AntInput;

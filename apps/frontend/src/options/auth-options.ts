@@ -1,31 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from 'axios'
-import { NextAuthOptions } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import GoogleProvider from 'next-auth/providers/google'
+import axios from "axios";
+import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
-import { UserType } from '@/features/types/user.types'
+import { UserType } from "@/features/types/user.types";
 
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
         username: {
-          label: 'username',
-          type: 'text',
-          placeholder: 'Your username',
+          label: "username",
+          type: "text",
+          placeholder: "Your username",
         },
-        password: { label: 'Password', type: 'password' },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) {
-          throw new Error('Username and password are required')
+          throw new Error("Username and password are required");
         }
         try {
           const { data: response } = await axios.post<{
-            user: UserType
-            accessToken: string
+            user: UserType;
+            accessToken: string;
           }>(
             `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
             {
@@ -33,25 +33,25 @@ const authOptions: NextAuthOptions = {
               password: credentials.password,
             },
             {
-              headers: { 'Content-Type': 'application/json' },
+              headers: { "Content-Type": "application/json" },
             },
-          )
+          );
 
           if (response) {
             return {
               id: response.user.id,
               user: response.user,
               accessToken: response.accessToken,
-            }
+            };
           }
 
-          return null
+          return null;
         } catch (error: any) {
           throw new Error(
             error.response?.data?.message ||
               error.message ||
-              'Invalid credentials',
-          )
+              "Invalid credentials",
+          );
         }
       },
     }),
@@ -66,7 +66,7 @@ const authOptions: NextAuthOptions = {
           avatar: profile.picture,
           firstName: profile.given_name,
           lastName: profile.family_name,
-        }
+        };
       },
     }),
   ],
@@ -74,13 +74,13 @@ const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
 
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async redirect({ url, baseUrl }) {
-      return baseUrl
+      return baseUrl;
     },
 
     async jwt({ token, user, account, profile }: any) {
@@ -98,9 +98,9 @@ const authOptions: NextAuthOptions = {
               avatar: profile.avatar,
             },
             {
-              headers: { 'Content-Type': 'application/json' },
+              headers: { "Content-Type": "application/json" },
             },
-          )
+          );
 
           token.user = {
             id: newUser.id,
@@ -108,28 +108,28 @@ const authOptions: NextAuthOptions = {
             lastName: newUser.lastName,
             email: newUser.email,
             avatar: newUser.avatar,
-          }
-          token.accessToken = accessToken
+          };
+          token.accessToken = accessToken;
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {}
       } else if (user) {
-        token.user = user.user
-        token.accessToken = user.accessToken
+        token.user = user.user;
+        token.accessToken = user.accessToken;
       }
 
-      return token
+      return token;
     },
 
     async session({ session, token }: any) {
-      session.user = token.user.user as UserType
-      session.accessToken = token.user.accessToken as string
-      return session
+      session.user = token.user.user as UserType;
+      session.accessToken = token.user.accessToken as string;
+      return session;
     },
   },
 
   pages: {
-    signIn: '/auth/login',
+    signIn: "/auth/login",
   },
-}
+};
 
-export default authOptions
+export default authOptions;

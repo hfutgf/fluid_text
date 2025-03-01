@@ -1,67 +1,67 @@
-'use client'
+"use client";
 
 import {
   CalendarOutlined,
   IdcardOutlined,
   LockOutlined,
   UserOutlined,
-} from '@ant-design/icons'
-import { zodResolver } from '@hookform/resolvers/zod'
-import dayjs from 'dayjs'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import { z } from 'zod'
+} from "@ant-design/icons";
+import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
 
-import AntButton from '@/components/ui/button'
-import AntDatePicker from '@/components/ui/datepicker'
-import AntInput from '@/components/ui/input/input'
-import AntPasswordInput from '@/components/ui/input/input-password'
-import { useRegister } from '@/features/auth/register/hooks/use-register'
+import AntButton from "@/components/ui/button";
+import AntDatePicker from "@/components/ui/datepicker";
+import AntInput from "@/components/ui/input/input";
+import AntPasswordInput from "@/components/ui/input/input-password";
+import { useRegister } from "@/features/auth/register/hooks/use-register";
 
 const registrationSchema = z
   .object({
-    username: z.string().min(6, 'Username is required'),
-    firstName: z.string().min(1, 'First name is required'),
-    lastName: z.string().min(1, 'Last name is required'),
+    username: z.string().min(6, "Username is required"),
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
     dateOfBirth: z
       .union([z.string(), z.date()])
-      .transform((val) => (typeof val === 'string' ? new Date(val) : val))
+      .transform((val) => (typeof val === "string" ? new Date(val) : val))
       .refine((date) => !isNaN(date.getTime()), {
-        message: 'Invalid date format',
+        message: "Invalid date format",
       })
       .refine(
         (date) => {
-          const minDate = new Date()
-          minDate.setFullYear(minDate.getFullYear() - 12)
-          return date <= minDate
+          const minDate = new Date();
+          minDate.setFullYear(minDate.getFullYear() - 12);
+          return date <= minDate;
         },
         {
-          message: 'You must be at least 12 years old',
+          message: "You must be at least 12 years old",
         },
       ),
 
     password: z
       .string()
-      .min(8, 'Password must be at least 8 characters long')
+      .min(8, "Password must be at least 8 characters long")
       .regex(/^(?=.*[A-Z])(?=.*\d).+$/, {
         message:
-          'Password must contain at least one uppercase letter and one number',
+          "Password must contain at least one uppercase letter and one number",
       }),
     confirmPassword: z
       .string()
-      .min(8, 'Confirm password must be at least 8 characters'),
+      .min(8, "Confirm password must be at least 8 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
-export type RegistrationFormData = z.infer<typeof registrationSchema>
+export type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 const Registration = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const {
     control,
@@ -69,21 +69,22 @@ const Registration = () => {
     formState: { errors },
   } = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
-  })
+  });
 
-  const { registerMutate, isRegisterPending, isRegisterSuccess } = useRegister()
+  const { registerMutate, isRegisterPending, isRegisterSuccess } =
+    useRegister();
 
   const onSubmit = (data: RegistrationFormData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { confirmPassword, ...body } = data
-    registerMutate(body)
-  }
+    const { confirmPassword, ...body } = data;
+    registerMutate(body);
+  };
 
   useEffect(() => {
     if (isRegisterSuccess) {
-      router.push('/auth/login')
+      router.push("/auth/login");
     }
-  }, [isRegisterSuccess, router])
+  }, [isRegisterSuccess, router]);
 
   return (
     <div className="bg-white p-6 py-12 rounded-md w-[500px] text-black">
@@ -151,7 +152,7 @@ const Registration = () => {
               value={field.value ? dayjs(field.value) : null}
               onChange={(date) => field.onChange(date?.toDate() ?? null)}
               disabledDate={(current) =>
-                current && current > dayjs().endOf('day')
+                current && current > dayjs().endOf("day")
               }
             />
           )}
@@ -208,7 +209,7 @@ const Registration = () => {
         </AntButton>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Registration
+export default Registration;

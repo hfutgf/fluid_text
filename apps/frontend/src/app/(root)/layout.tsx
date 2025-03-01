@@ -1,7 +1,7 @@
-import CommonProvider from '@/providers/common-provider'
+import CommonProvider from "@/providers/common-provider";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  return <CommonProvider>{children}</CommonProvider>
-}
+  return <CommonProvider>{children}</CommonProvider>;
+};
 
-export default RootLayout
+export default RootLayout;
