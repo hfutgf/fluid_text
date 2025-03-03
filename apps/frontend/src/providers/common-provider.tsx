@@ -1,10 +1,18 @@
-"use client";
+'use client'
 
-import NextTopLoader from "nextjs-toploader";
-import React from "react";
-import { ToastContainer } from "react-toastify";
+import { useSession } from 'next-auth/react'
+import NextTopLoader from 'nextjs-toploader'
+import React from 'react'
+import { ToastContainer } from 'react-toastify'
+
+import Loading from '@/components/shared/loading'
+
 
 const CommonProvider = ({ children }: { children: React.ReactNode }) => {
+  const session = useSession()
+
+  if (session.status === 'loading') return <Loading />
+
   return (
     <>
       <ToastContainer />
@@ -23,7 +31,7 @@ const CommonProvider = ({ children }: { children: React.ReactNode }) => {
       />
       {children}
     </>
-  );
-};
+  )
+}
 
-export default CommonProvider;
+export default CommonProvider
