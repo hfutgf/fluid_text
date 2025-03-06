@@ -58,7 +58,7 @@ const items: MenuProps['items'] = [
 
 const MyDocuments = () => {
   return (
-    <div className="w-screen bg-white">
+    <div className="w-screen bg-white pb-8">
       <div className="max-w-[1150px] mx-auto p-4">
         <div className="flex items-center justify-between">
           <h4 className="text-base text-gray-800">Recent documents</h4>
