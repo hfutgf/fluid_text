@@ -1,8 +1,11 @@
 import { EllipsisOutlined, LeftOutlined } from '@ant-design/icons'
+import { MenuProps } from 'antd'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 import AntButton from '@/components/ui/button'
+import AntDropDown from '@/components/ui/dropdown'
 
 const templates = [
   {
@@ -31,9 +34,16 @@ const templates = [
   },
 ]
 
+const items: MenuProps['items'] = [
+  {
+    key: '1',
+    label: <Link href="/templates/create">Add template</Link>,
+  },
+]
+
 const Templates = () => {
   return (
-    <div className="w-screen bg-gray-50">
+    <div className="w-screen bg-gray-50 shadow-sm">
       <div className="max-w-[1150px] mx-auto p-4">
         <div className="flex items-center justify-between">
           <h4 className="text-base text-gray-600">Create document</h4>
@@ -50,13 +60,20 @@ const Templates = () => {
               </div>
             </AntButton>
             <div className="w-8 h-[1px] bg-gray-300 rotate-90" />
-            <div className="py-1 px-0.5 rounded-md hover:bg-gray-300 duration-100 cursor-pointer">
-              <EllipsisOutlined className="rotate-90 text-xl" />
-            </div>
+
+            <AntDropDown
+              menu={{ items }}
+              placement="bottomRight"
+              arrow={{ pointAtCenter: true }}
+            >
+              <div className="py-1 px-0.5 rounded-md hover:bg-gray-300 duration-100 cursor-pointer">
+                <EllipsisOutlined className="rotate-90 text-xl" />
+              </div>
+            </AntDropDown>
           </div>
         </div>
         <div className="mt-4 flex items-start gap-5">
-          <div className="flex flex-col gap-1">
+          <Link href={'/templates/create'} className="flex flex-col gap-1">
             <div className="rounded-md hover:border border border-gray-300 hover:border-blue-500 overflow-hidden cursor-pointer">
               <Image
                 src={
@@ -71,7 +88,7 @@ const Templates = () => {
             <h5 className="text-gray-800 text-sm font-semibold">
               Empty document
             </h5>
-          </div>
+          </Link>
           {templates.map((template, i) => (
             <div key={i} className="flex select-none flex-col gap-1">
               <div className="rounded-md hover:border border border-gray-300 hover:border-blue-500 overflow-hidden cursor-pointer">

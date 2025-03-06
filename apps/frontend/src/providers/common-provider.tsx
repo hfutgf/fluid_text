@@ -6,6 +6,7 @@ import React from 'react'
 import { ToastContainer } from 'react-toastify'
 
 import Loading from '@/components/shared/loading'
+import AntdRegistry from '@/providers/ant-registry'
 
 
 const CommonProvider = ({ children }: { children: React.ReactNode }) => {
@@ -29,7 +30,9 @@ const CommonProvider = ({ children }: { children: React.ReactNode }) => {
         zIndex={1600}
         showAtBottom={false}
       />
+      <AntdRegistry>
       {children}
+      </AntdRegistry>
     </>
   )
 }
